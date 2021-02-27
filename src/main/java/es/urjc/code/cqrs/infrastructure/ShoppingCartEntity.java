@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import es.urjc.code.cqrs.domain.ShoppingCartStatus;
 
 @Entity
+@Table(name="shopping_cart")
 public class ShoppingCartEntity {
 
 	@Id
