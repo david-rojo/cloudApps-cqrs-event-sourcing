@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import es.urjc.code.cqrs.domain.CartExpenditureEventProducer;
-import es.urjc.code.cqrs.domain.FullCartExpenditureDTO;
+import es.urjc.code.cqrs.domain.dto.FullCartExpenditureDTO;
 
 @Component
 public class CartExpenditureEventProducerAdapter implements CartExpenditureEventProducer {

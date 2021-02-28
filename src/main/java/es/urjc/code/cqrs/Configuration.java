@@ -4,41 +4,56 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 
 import es.urjc.code.cqrs.domain.CartExpenditureEventProducer;
-import es.urjc.code.cqrs.domain.CartExpenditureService;
-import es.urjc.code.cqrs.domain.CartExpenditureServiceImpl;
-import es.urjc.code.cqrs.domain.ProductService;
-import es.urjc.code.cqrs.domain.ProductServiceImpl;
-import es.urjc.code.cqrs.domain.ShoppingCartService;
-import es.urjc.code.cqrs.domain.ShoppingCartServiceImpl;
+import es.urjc.code.cqrs.domain.service.command.ProductCommandService;
+import es.urjc.code.cqrs.domain.service.command.ProductCommandServiceImpl;
+import es.urjc.code.cqrs.domain.service.command.ShoppingCartCommandService;
+import es.urjc.code.cqrs.domain.service.command.ShoppingCartCommandServiceImpl;
+import es.urjc.code.cqrs.domain.service.query.CartExpenditureQueryService;
+import es.urjc.code.cqrs.domain.service.query.CartExpenditureQueryServiceImpl;
+import es.urjc.code.cqrs.domain.service.query.ProductQueryService;
+import es.urjc.code.cqrs.domain.service.query.ProductQueryServiceImpl;
+import es.urjc.code.cqrs.domain.service.query.ShoppingCartQueryService;
+import es.urjc.code.cqrs.domain.service.query.ShoppingCartQueryServiceImpl;
 import es.urjc.code.cqrs.infrastructure.CartExpenditureEventProducerAdapter;
-import es.urjc.code.cqrs.infrastructure.SpringDataJPACartExpenditureRepositoryAdapter;
-import es.urjc.code.cqrs.infrastructure.SpringDataJPAProductRepositoryAdapter;
-import es.urjc.code.cqrs.infrastructure.SpringDataJPAShoppingCartRepositoryAdapter;
-import es.urjc.code.cqrs.service.ValidationServiceImpl;
+import es.urjc.code.cqrs.infrastructure.repository.SpringDataJPACartExpenditureRepositoryAdapter;
+import es.urjc.code.cqrs.infrastructure.repository.SpringDataJPAProductRepositoryAdapter;
+import es.urjc.code.cqrs.infrastructure.repository.SpringDataJPAShoppingCartRepositoryAdapter;
+import es.urjc.code.cqrs.service.ValidationQueryServiceImpl;
 
 @org.springframework.context.annotation.Configuration
 public class Configuration {
 
 	@Bean
-	public ShoppingCartService shoppingCartService(
-	        SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
-	        SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
-	        CartExpenditureEventProducer cartExpenditureEventProducer) {
-		return new ShoppingCartServiceImpl(
-		        shoppingCartRepositoryAdapter,
-		        productRepositoryAdapter,
-		        new ValidationServiceImpl(),
-		        cartExpenditureEventProducer);
-	}
-
-	@Bean
-	public ProductService productService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
-		return new ProductServiceImpl(repositoryAdapter);
+	public ProductQueryService productQueryService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
+		return new ProductQueryServiceImpl(repositoryAdapter);
 	}
 	
 	@Bean
-	public CartExpenditureService cartExpenditureService(SpringDataJPACartExpenditureRepositoryAdapter repositoryAdapter) {
-		return new CartExpenditureServiceImpl(repositoryAdapter);
+	public ProductCommandService productCommandService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
+		return new ProductCommandServiceImpl(repositoryAdapter);
+	}
+	
+	@Bean
+	public ShoppingCartQueryService shoppingCartQueryService(
+	        SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter) {
+		return new ShoppingCartQueryServiceImpl(shoppingCartRepositoryAdapter);
+	}
+	
+	@Bean
+	public ShoppingCartCommandService shoppingCartCommandService(
+	        SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
+	        SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
+	        CartExpenditureEventProducer cartExpenditureEventProducer) {
+		return new ShoppingCartCommandServiceImpl(
+		        shoppingCartRepositoryAdapter,
+		        productRepositoryAdapter,
+		        new ValidationQueryServiceImpl(),
+		        cartExpenditureEventProducer);
+	}
+	
+	@Bean
+	public CartExpenditureQueryService cartExpenditureService(SpringDataJPACartExpenditureRepositoryAdapter repositoryAdapter) {
+		return new CartExpenditureQueryServiceImpl(repositoryAdapter);
 	}
 
 	@Bean

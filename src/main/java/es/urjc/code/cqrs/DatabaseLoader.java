@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
-import es.urjc.code.cqrs.domain.FullProductDTO;
 import es.urjc.code.cqrs.domain.Product;
-import es.urjc.code.cqrs.domain.ProductRepository;
+import es.urjc.code.cqrs.domain.dto.FullProductDTO;
+import es.urjc.code.cqrs.domain.repository.ProductRepository;
 
 @Controller
 public class DatabaseLoader implements CommandLineRunner {

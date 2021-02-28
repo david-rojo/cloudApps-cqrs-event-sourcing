@@ -4,23 +4,23 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.modelmapper.ModelMapper;
 
-import es.urjc.code.cqrs.domain.FullProductDTO;
 import es.urjc.code.cqrs.domain.Product;
-import es.urjc.code.cqrs.domain.ProductDTO;
-import es.urjc.code.cqrs.domain.ProductRepository;
-import es.urjc.code.cqrs.domain.ProductServiceImpl;
+import es.urjc.code.cqrs.domain.dto.FullProductDTO;
+import es.urjc.code.cqrs.domain.dto.ProductDTO;
+import es.urjc.code.cqrs.domain.repository.ProductRepository;
+import es.urjc.code.cqrs.domain.service.command.ProductCommandServiceImpl;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class ProductService {
 
 	private ProductRepository productRepository;
-	private ProductServiceImpl productService;
+	private ProductCommandServiceImpl productService;
 
 	private ModelMapper mapper = new ModelMapper();
 
@@ -29,7 +29,7 @@ public class ProductService {
 	@BeforeEach
 	void setUp() {
 		productRepository = mock(ProductRepository.class);
-		productService = new ProductServiceImpl(productRepository);
+		productService = new ProductCommandServiceImpl(productRepository);
 	}
 
 	@Test

@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import es.urjc.code.cqrs.domain.CartExpenditureRepository;
-import es.urjc.code.cqrs.domain.FullCartExpenditureDTO;
+import es.urjc.code.cqrs.domain.dto.FullCartExpenditureDTO;
+import es.urjc.code.cqrs.domain.repository.CartExpenditureRepository;
 
 @Component
 public class CartExpenditureEventConsumer {

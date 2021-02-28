@@ -3,13 +3,16 @@ package es.urjc.code.cqrs.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.urjc.code.cqrs.domain.exception.ShoppingCartDontStockException;
+import es.urjc.code.cqrs.domain.service.query.ValidationQueryService;
+
 public class ShoppingCart {
 
 	private Long id;
 	private ShoppingCartStatus status;
 	private List<ShoppingCartItem> items;
 
-	private ValidationService validationService;
+	private ValidationQueryService validationService;
 
 	public ShoppingCart() {
 		super();
@@ -42,11 +45,11 @@ public class ShoppingCart {
 		this.items = items;
 	}
 
-	public ValidationService getValidationService() {
+	public ValidationQueryService getValidationService() {
 		return validationService;
 	}
 
-	public void setValidationService(ValidationService validationService) {
+	public void setValidationService(ValidationQueryService validationService) {
 		this.validationService = validationService;
 	}
 

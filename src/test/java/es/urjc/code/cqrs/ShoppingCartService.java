@@ -14,24 +14,24 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.modelmapper.ModelMapper;
 
 import es.urjc.code.cqrs.domain.CartExpenditureEventProducer;
-import es.urjc.code.cqrs.domain.FullProductDTO;
-import es.urjc.code.cqrs.domain.FullShoppingCartDTO;
-import es.urjc.code.cqrs.domain.FullShoppingCartItemDTO;
 import es.urjc.code.cqrs.domain.Product;
-import es.urjc.code.cqrs.domain.ProductDTO;
-import es.urjc.code.cqrs.domain.ProductRepository;
-import es.urjc.code.cqrs.domain.ProductServiceImpl;
-import es.urjc.code.cqrs.domain.ShoppingCartRepository;
-import es.urjc.code.cqrs.domain.ShoppingCartServiceImpl;
-import es.urjc.code.cqrs.service.ValidationServiceImpl;
+import es.urjc.code.cqrs.domain.dto.FullProductDTO;
+import es.urjc.code.cqrs.domain.dto.FullShoppingCartDTO;
+import es.urjc.code.cqrs.domain.dto.FullShoppingCartItemDTO;
+import es.urjc.code.cqrs.domain.dto.ProductDTO;
+import es.urjc.code.cqrs.domain.repository.ProductRepository;
+import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
+import es.urjc.code.cqrs.domain.service.command.ProductCommandServiceImpl;
+import es.urjc.code.cqrs.domain.service.command.ShoppingCartCommandServiceImpl;
+import es.urjc.code.cqrs.service.ValidationQueryServiceImpl;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class ShoppingCartService {
 	
 	private ProductRepository productRepository;
-	private ProductServiceImpl productService;
+	private ProductCommandServiceImpl productService;
 	private ShoppingCartRepository shoppingCartRepository;
-	private ShoppingCartServiceImpl shoppingCartService;
+	private ShoppingCartCommandServiceImpl shoppingCartService;
 	private ModelMapper mapper = new ModelMapper();
 	
 	private CartExpenditureEventProducer eventProducer;
@@ -44,11 +44,11 @@ public class ShoppingCartService {
 		shoppingCartRepository = mock(ShoppingCartRepository.class);
 		eventProducer = mock(CartExpenditureEventProducer.class);
 		
-		productService = new ProductServiceImpl(productRepository);
-		shoppingCartService = new ShoppingCartServiceImpl(
+		productService = new ProductCommandServiceImpl(productRepository);
+		shoppingCartService = new ShoppingCartCommandServiceImpl(
 				shoppingCartRepository,
 		        productRepository,
-		        new ValidationServiceImpl(), 
+		        new ValidationQueryServiceImpl(), 
 		        eventProducer);
 	}
 	
