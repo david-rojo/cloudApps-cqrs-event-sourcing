@@ -25,4 +25,10 @@ public class SpringDataJPACartExpenditureRepositoryAdapter implements CartExpend
 		return Arrays.asList(mapper.map(repository.findAll(), FullCartExpenditureDTO[].class));
 	}
 
+	@Override
+	public FullCartExpenditureDTO save(FullCartExpenditureDTO fullCartExpenditureDTO) {
+		 CartExpenditureEntity cartExpenditureEntity = mapper.map(fullCartExpenditureDTO, CartExpenditureEntity.class);
+		 return mapper.map(this.repository.save(cartExpenditureEntity), FullCartExpenditureDTO.class);
+	}
+
 }

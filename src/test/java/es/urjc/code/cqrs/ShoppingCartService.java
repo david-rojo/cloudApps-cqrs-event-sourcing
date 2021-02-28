@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.modelmapper.ModelMapper;
 
+import es.urjc.code.cqrs.domain.CartExpenditureEventProducer;
 import es.urjc.code.cqrs.domain.FullProductDTO;
 import es.urjc.code.cqrs.domain.FullShoppingCartDTO;
 import es.urjc.code.cqrs.domain.FullShoppingCartItemDTO;
@@ -29,11 +30,11 @@ public class ShoppingCartService {
 	
 	private ProductRepository productRepository;
 	private ProductServiceImpl productService;
-
 	private ShoppingCartRepository shoppingCartRepository;
 	private ShoppingCartServiceImpl shoppingCartService;
-
 	private ModelMapper mapper = new ModelMapper();
+	
+	private CartExpenditureEventProducer eventProducer;
 	
 	private static FullShoppingCartDTO createdShoppingCart;
 	
@@ -41,12 +42,14 @@ public class ShoppingCartService {
 	void setUp() {
 		productRepository = mock(ProductRepository.class);
 		shoppingCartRepository = mock(ShoppingCartRepository.class);
+		eventProducer = mock(CartExpenditureEventProducer.class);
 		
 		productService = new ProductServiceImpl(productRepository);
 		shoppingCartService = new ShoppingCartServiceImpl(
 				shoppingCartRepository,
 		        productRepository,
-		        new ValidationServiceImpl());
+		        new ValidationServiceImpl(), 
+		        eventProducer);
 	}
 	
 	@Test

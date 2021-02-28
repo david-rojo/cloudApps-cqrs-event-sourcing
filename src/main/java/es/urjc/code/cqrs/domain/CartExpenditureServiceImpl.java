@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 public class CartExpenditureServiceImpl implements CartExpenditureService {
 
 	private CartExpenditureRepository repository;
+	
 	ModelMapper mapper = new ModelMapper();
 	
 	public CartExpenditureServiceImpl(CartExpenditureRepository repository) {
@@ -16,6 +17,11 @@ public class CartExpenditureServiceImpl implements CartExpenditureService {
 	@Override
 	public Collection<FullCartExpenditureDTO> getCartExpenditures() {
 		return repository.findAll();
+	}
+
+	@Override
+	public FullCartExpenditureDTO createCartExpenditure(FullCartExpenditureDTO fullCartExpenditureDTO) {
+		return repository.save(fullCartExpenditureDTO);
 	}
 
 }

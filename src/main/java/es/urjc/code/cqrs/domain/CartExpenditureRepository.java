@@ -6,4 +6,6 @@ public interface CartExpenditureRepository {
 
 	Collection<FullCartExpenditureDTO> findAll();
 	
+	FullCartExpenditureDTO save(FullCartExpenditureDTO fullCartExpenditureDTO);
+	
 }

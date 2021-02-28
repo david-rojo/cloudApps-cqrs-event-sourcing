@@ -7,15 +7,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ShoppingCartRepository shoppingCartRepository;
 	private ProductRepository productRepository;
 	private ValidationService validationService;
+	private CartExpenditureEventProducer cartExpenditureEventProducer;
 	
 	private ModelMapper mapper = new ModelMapper();
 
 	public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository,
 	        ProductRepository productRepository,
-	        ValidationService validationService) {
+	        ValidationService validationService,
+	        CartExpenditureEventProducer cartExpenditureEventProducer) {
 		this.shoppingCartRepository = shoppingCartRepository;
 		this.productRepository = productRepository;
 		this.validationService = validationService;
+		this.cartExpenditureEventProducer = cartExpenditureEventProducer;
 	}
 	
 	private FullShoppingCartDTO saveShoppingCart(FullShoppingCartDTO fullShoppingCartDTO) {
@@ -50,9 +53,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			shoppingCart.validate();
 		}
 
-		FullShoppingCartDTO newShoppingCartDTO = mapper.map(shoppingCart, FullShoppingCartDTO.class);
+		FullShoppingCartDTO fullSavedShoppingCartDTO = saveShoppingCart(
+				mapper.map(shoppingCart, FullShoppingCartDTO.class));
 		
-		return saveShoppingCart(newShoppingCartDTO);
+		if (shoppingCart.isCompleted()) {
+			cartExpenditureEventProducer.publish(new FullCartExpenditureDTO(
+					fullSavedShoppingCartDTO.getId(),
+					fullSavedShoppingCartDTO.getPrice()));
+		}		
+		
+		return fullSavedShoppingCartDTO;
 	}
 
 	@Override
