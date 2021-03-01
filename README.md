@@ -1,5 +1,7 @@
 # CQRS & Event Sourcing
 
+Endpoints has been splitted using Commands and Queries approach and events has been implemented using events inside Spring in order that the application can be launched isolated with any dependency.
+
 ## Launch application
 
 ```
