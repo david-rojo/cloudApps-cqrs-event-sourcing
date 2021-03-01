@@ -3,6 +3,7 @@ package es.urjc.code.cqrs.controller.command;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class ProductCommandController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ProductResponseDTO deleteProduct(@PathVariable Long id) {
+	public ProductResponseDTO deleteProduct(@PathVariable UUID id) {
 		return mapper.map(productService.deleteProduct(id), ProductResponseDTO.class);
 	}
 

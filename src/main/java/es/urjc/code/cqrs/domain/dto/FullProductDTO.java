@@ -1,8 +1,10 @@
 package es.urjc.code.cqrs.domain.dto;
 
+import java.util.UUID;
+
 public class FullProductDTO {
 
-	private Long id;
+	private UUID id;
 	private String name;
 	private String description;
 	private double price;
@@ -11,12 +13,12 @@ public class FullProductDTO {
 		super();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(UUID uuid) {
+		this.id = uuid;
 	}
 
 	public String getName() {

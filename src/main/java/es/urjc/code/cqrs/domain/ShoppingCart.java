@@ -2,13 +2,14 @@ package es.urjc.code.cqrs.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import es.urjc.code.cqrs.domain.exception.ShoppingCartDontStockException;
 import es.urjc.code.cqrs.domain.service.query.ValidationQueryService;
 
 public class ShoppingCart {
 
-	private Long id;
+	private UUID id;
 	private ShoppingCartStatus status;
 	private List<ShoppingCartItem> items;
 
@@ -21,11 +22,11 @@ public class ShoppingCart {
 		this.items = new ArrayList<>();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -57,7 +58,7 @@ public class ShoppingCart {
 		this.items.add(shoppingCartItem);
 	}
 
-	public void removeItem(Long idProduct) {
+	public void removeItem(UUID idProduct) {
 		this.items.removeIf(item -> item.getProduct().getId().equals(idProduct));
 	}
 

@@ -1,8 +1,10 @@
 package es.urjc.code.cqrs.domain;
 
+import java.util.UUID;
+
 public class ShoppingCartItem {
 
-	private Long id;
+	private UUID id;
 	private Product product;
 	private int quantity;
 
@@ -16,11 +18,11 @@ public class ShoppingCartItem {
 		this.quantity = quantity;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

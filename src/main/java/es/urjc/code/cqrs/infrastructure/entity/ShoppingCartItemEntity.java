@@ -1,8 +1,8 @@
 package es.urjc.code.cqrs.infrastructure.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,8 +12,7 @@ import javax.persistence.Table;
 public class ShoppingCartItemEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 
 	@OneToOne
 	private ProductEntity product;
@@ -24,18 +23,18 @@ public class ShoppingCartItemEntity {
 		super();
 	}
 
-	public ShoppingCartItemEntity(Long id, ProductEntity product, int quantity) {
+	public ShoppingCartItemEntity(UUID id, ProductEntity product, int quantity) {
 		super();
 		this.id = id;
 		this.product = product;
 		this.quantity = quantity;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

@@ -1,5 +1,7 @@
 package es.urjc.code.cqrs.domain.service.query;
 
+import java.util.UUID;
+
 import org.modelmapper.ModelMapper;
 
 import es.urjc.code.cqrs.domain.dto.FullShoppingCartDTO;
@@ -16,7 +18,7 @@ public class ShoppingCartQueryServiceImpl implements ShoppingCartQueryService {
 	}
 
 	@Override
-	public FullShoppingCartDTO getShoppingCart(Long id) {
+	public FullShoppingCartDTO getShoppingCart(UUID id) {
 		return mapper.map(shoppingCartRepository.findById(id), FullShoppingCartDTO.class);
 	}
 

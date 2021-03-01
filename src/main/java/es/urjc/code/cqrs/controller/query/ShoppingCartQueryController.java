@@ -1,5 +1,7 @@
 package es.urjc.code.cqrs.controller.query;
 
+import java.util.UUID;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,7 @@ public class ShoppingCartQueryController {
 	}
 
 	@GetMapping("/{id}")
-	public ShoppingCartResponseDTO getShoppingCart(@PathVariable Long id) {
+	public ShoppingCartResponseDTO getShoppingCart(@PathVariable UUID id) {
 		return mapper.map(shoppingService.getShoppingCart(id), ShoppingCartResponseDTO.class);
 	}
 	

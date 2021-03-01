@@ -1,8 +1,10 @@
 package es.urjc.code.cqrs.controller.dto;
 
+import java.util.UUID;
+
 public class ProductResponseDTO {
 
-	private Long id;
+	private UUID id;
 	private String name;
 	private String description;
 	private double price;
@@ -11,11 +13,11 @@ public class ProductResponseDTO {
 		super();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

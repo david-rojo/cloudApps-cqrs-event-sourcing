@@ -3,6 +3,7 @@ package es.urjc.code.cqrs.controller.command;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class ShoppingCartCommandController {
 
 	@PostMapping("/{idShoppingCart}/product/{idProduct}/quantity/{quantity}")
 	public ShoppingCartResponseDTO getShoppingCart(
-	        @PathVariable Long idShoppingCart,
-	        @PathVariable Long idProduct,
+	        @PathVariable UUID idShoppingCart,
+	        @PathVariable UUID idProduct,
 	        @PathVariable int quantity) {
 
 		return mapper.map(shoppingService.addProduct(idShoppingCart, idProduct, quantity),
@@ -44,8 +45,8 @@ public class ShoppingCartCommandController {
 
 	@DeleteMapping("/{idShoppingCart}/product/{idProduct}")
 	public ShoppingCartResponseDTO deleteProductInShoppingCart(
-	        @PathVariable Long idShoppingCart,
-	        @PathVariable Long idProduct) {
+	        @PathVariable UUID idShoppingCart,
+	        @PathVariable UUID idProduct) {
 		return mapper.map(shoppingService.deleteProduct(idShoppingCart, idProduct), ShoppingCartResponseDTO.class);
 	}
 
@@ -62,7 +63,7 @@ public class ShoppingCartCommandController {
 
 	@PatchMapping("/{id}")
 	public ShoppingCartResponseDTO updateShoppingCart(
-	        @PathVariable Long id,
+	        @PathVariable UUID id,
 	        @Validated @RequestBody ShoppingCartRequestDTO shoppingCartRequestDTO) {
 		FullShoppingCartDTO fullShoppingCartDTO = shoppingService.updateShoppingCart(id,
 		        mapper.map(shoppingCartRequestDTO, ShoppingCartDTO.class));
@@ -71,7 +72,7 @@ public class ShoppingCartCommandController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ShoppingCartResponseDTO deleteShoppingCart(@PathVariable Long id) {
+	public ShoppingCartResponseDTO deleteShoppingCart(@PathVariable UUID id) {
 		return mapper.map(shoppingService.deleteShoppingCart(id), ShoppingCartResponseDTO.class);
 	}
 }

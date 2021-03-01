@@ -2,6 +2,7 @@ package es.urjc.code.cqrs.controller.query;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class ProductQueryController {
 	}
 
 	@GetMapping("/{id}")
-	public ProductResponseDTO getProduct(@PathVariable Long id) {
+	public ProductResponseDTO getProduct(@PathVariable UUID id) {
 		return mapper.map(productService.getProduct(id), ProductResponseDTO.class);
 	}
 }

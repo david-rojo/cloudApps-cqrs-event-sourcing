@@ -1,19 +1,21 @@
 package es.urjc.code.cqrs.controller.dto;
 
+import java.util.UUID;
+
 public class CartExpenditureResponseDTO {
 
-	private Long id;
+	private UUID id;
 	private double expenditure;
 	
 	public CartExpenditureResponseDTO() {
 		super();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

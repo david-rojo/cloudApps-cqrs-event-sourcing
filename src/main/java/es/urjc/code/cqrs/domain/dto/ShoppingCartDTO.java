@@ -1,12 +1,13 @@
 package es.urjc.code.cqrs.domain.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 import es.urjc.code.cqrs.domain.ShoppingCartStatus;
 
 public class ShoppingCartDTO {
 
-	private Long id;
+	private UUID id;
 	private ShoppingCartStatus status;
 	private List<ShoppingCartItemDTO> items;
 	private double price;
@@ -15,11 +16,11 @@ public class ShoppingCartDTO {
 		super();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

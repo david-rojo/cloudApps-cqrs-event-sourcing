@@ -1,6 +1,7 @@
 package es.urjc.code.cqrs.domain.service.query;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 
@@ -22,7 +23,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 	}
 
 	@Override
-	public FullProductDTO getProduct(Long id) {
+	public FullProductDTO getProduct(UUID id) {
 		return repository.findById(id);
 	}
 

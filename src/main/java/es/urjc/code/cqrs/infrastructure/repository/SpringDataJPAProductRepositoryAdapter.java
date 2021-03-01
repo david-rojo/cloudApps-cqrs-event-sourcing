@@ -2,6 +2,7 @@ package es.urjc.code.cqrs.infrastructure.repository;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class SpringDataJPAProductRepositoryAdapter implements ProductRepository 
 	}
 
 	@Override
-	public FullProductDTO findById(Long id) {
+	public FullProductDTO findById(UUID id) {
 		return mapper.map(repository.findById(id).orElseThrow(ProductNotFoundException::new), FullProductDTO.class);
 	}
 
@@ -40,7 +41,7 @@ public class SpringDataJPAProductRepositoryAdapter implements ProductRepository 
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(UUID id) {
 		repository.deleteById(id);
 	}
 

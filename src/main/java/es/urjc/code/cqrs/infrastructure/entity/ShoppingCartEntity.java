@@ -1,11 +1,10 @@
 package es.urjc.code.cqrs.infrastructure.entity;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,8 +16,7 @@ import es.urjc.code.cqrs.domain.ShoppingCartStatus;
 public class ShoppingCartEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 	private ShoppingCartStatus status;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,17 +26,17 @@ public class ShoppingCartEntity {
 		super();
 	}
 
-	public ShoppingCartEntity(Long id, List<ShoppingCartItemEntity> items) {
+	public ShoppingCartEntity(UUID id, List<ShoppingCartItemEntity> items) {
 		super();
 		this.id = id;
 		this.items = items;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
