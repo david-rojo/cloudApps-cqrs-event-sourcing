@@ -129,14 +129,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{ENDPOINT}}/api/shoppingcarts/1",
+							"raw": "{{ENDPOINT}}/api/shoppingcarts/b868416b-55e0-4447-95a8-82a94345d6ed",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"shoppingcarts",
-								"1"
+								"b868416b-55e0-4447-95a8-82a94345d6ed"
 							]
 						}
 					},
@@ -219,6 +219,29 @@
 								"1",
 								"product",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CartExpenditure",
+			"item": [
+				{
+					"name": "/api/cartexpenditure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ENDPOINT}}/api/cartexpenditure",
+							"host": [
+								"{{ENDPOINT}}"
+							],
+							"path": [
+								"api",
+								"cartexpenditure"
 							]
 						}
 					},

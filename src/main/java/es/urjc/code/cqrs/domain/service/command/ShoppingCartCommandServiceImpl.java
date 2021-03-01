@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 
-import es.urjc.code.cqrs.domain.CartExpenditureEventProducer;
 import es.urjc.code.cqrs.domain.Product;
 import es.urjc.code.cqrs.domain.ShoppingCart;
 import es.urjc.code.cqrs.domain.ShoppingCartItem;
@@ -16,6 +15,7 @@ import es.urjc.code.cqrs.domain.dto.ShoppingCartDTO;
 import es.urjc.code.cqrs.domain.repository.ProductRepository;
 import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
 import es.urjc.code.cqrs.domain.service.query.ValidationQueryService;
+import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
 
 public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandService {
 

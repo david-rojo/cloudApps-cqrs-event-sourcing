@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.modelmapper.ModelMapper;
 
-import es.urjc.code.cqrs.domain.CartExpenditureEventProducer;
 import es.urjc.code.cqrs.domain.Product;
 import es.urjc.code.cqrs.domain.dto.FullProductDTO;
 import es.urjc.code.cqrs.domain.dto.FullShoppingCartDTO;
@@ -24,6 +23,7 @@ import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
 import es.urjc.code.cqrs.domain.service.command.ProductCommandServiceImpl;
 import es.urjc.code.cqrs.domain.service.command.ShoppingCartCommandServiceImpl;
 import es.urjc.code.cqrs.service.ValidationQueryServiceImpl;
+import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class ShoppingCartService {
