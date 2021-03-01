@@ -18,6 +18,7 @@ import es.urjc.code.cqrs.infrastructure.repository.SpringDataJPAShoppingCartRepo
 import es.urjc.code.cqrs.service.ValidationQueryServiceImpl;
 import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
 import es.urjc.code.cqrs.service.event.ProductEventProducer;
+import es.urjc.code.cqrs.service.event.ShoppingCartEventProducer;
 
 @org.springframework.context.annotation.Configuration
 public class Configuration {
@@ -43,12 +44,14 @@ public class Configuration {
 	public ShoppingCartCommandService shoppingCartCommandService(
 	        SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
 	        SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
-	        CartExpenditureEventProducer cartExpenditureEventProducer) {
+	        CartExpenditureEventProducer cartExpenditureEventProducer,
+	        ShoppingCartEventProducer shoppingCartEventProducer) {
 		return new ShoppingCartCommandServiceImpl(
 		        shoppingCartRepositoryAdapter,
 		        productRepositoryAdapter,
 		        new ValidationQueryServiceImpl(),
-		        cartExpenditureEventProducer);
+		        cartExpenditureEventProducer,
+		        shoppingCartEventProducer);
 	}
 	
 	@Bean

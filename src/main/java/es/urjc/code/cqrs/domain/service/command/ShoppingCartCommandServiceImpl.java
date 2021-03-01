@@ -15,31 +15,36 @@ import es.urjc.code.cqrs.domain.repository.ProductRepository;
 import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
 import es.urjc.code.cqrs.domain.service.query.ValidationQueryService;
 import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
+import es.urjc.code.cqrs.service.event.ShoppingCartEventProducer;
 import es.urjc.code.cqrs.service.event.model.CompletedCartEvent;
+import es.urjc.code.cqrs.service.event.model.DeletedCartEvent;
+import es.urjc.code.cqrs.service.event.model.SavedCartEvent;
 
 public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandService {
 
 	private ShoppingCartRepository shoppingCartRepository;
 	private ProductRepository productRepository;
 	private ValidationQueryService validationService;
-	private CartExpenditureEventProducer eventProducer;
+	private CartExpenditureEventProducer cartExpenditureEventProducer;
+	private ShoppingCartEventProducer shoppingCartEventProducer;
 	
 	private ModelMapper mapper = new ModelMapper();
 
 	public ShoppingCartCommandServiceImpl(ShoppingCartRepository shoppingCartRepository,
 	        ProductRepository productRepository,
 	        ValidationQueryService validationService,
-	        CartExpenditureEventProducer eventProducer) {
+	        CartExpenditureEventProducer cartExpenditureEventProducer,
+	        ShoppingCartEventProducer shoppingCartEventProducer) {
 		this.shoppingCartRepository = shoppingCartRepository;
 		this.productRepository = productRepository;
 		this.validationService = validationService;
-		this.eventProducer = eventProducer;
+		this.cartExpenditureEventProducer = cartExpenditureEventProducer;
+		this.shoppingCartEventProducer = shoppingCartEventProducer;
 	}
 	
 	private FullShoppingCartDTO saveShoppingCart(FullShoppingCartDTO fullShoppingCartDTO) {
-		FullShoppingCartDTO saveFullShoppingCartDTO = shoppingCartRepository.save(fullShoppingCartDTO);
-
-		return (saveFullShoppingCartDTO != null) ? saveFullShoppingCartDTO : fullShoppingCartDTO;
+		shoppingCartEventProducer.send(mapper.map(fullShoppingCartDTO, SavedCartEvent.class));
+		return mapper.map(fullShoppingCartDTO, FullShoppingCartDTO.class);
 	}
 
 	@Override
@@ -67,7 +72,7 @@ public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandServic
 				mapper.map(shoppingCart, FullShoppingCartDTO.class));
 		
 		if (shoppingCart.isCompleted()) {
-			eventProducer.send(new CompletedCartEvent(
+			cartExpenditureEventProducer.send(new CompletedCartEvent(
 					fullSavedShoppingCartDTO.getId(),
 					fullSavedShoppingCartDTO.getPrice()));
 		}		
@@ -77,10 +82,9 @@ public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandServic
 
 	@Override
 	public FullShoppingCartDTO deleteShoppingCart(UUID id) {
-		FullShoppingCartDTO fullShoppingCartDTO = shoppingCartRepository.findById(id);
-		shoppingCartRepository.deleteById(id);
-
-		return fullShoppingCartDTO;
+		FullShoppingCartDTO shoppingCart = shoppingCartRepository.findById(id);
+		shoppingCartEventProducer.send(mapper.map(shoppingCart, DeletedCartEvent.class));
+		return shoppingCart;
 	}
 
 	@Override

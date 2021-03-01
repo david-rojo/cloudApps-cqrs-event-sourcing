@@ -1,10 +1,6 @@
 package es.urjc.code.cqrs;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import es.urjc.code.cqrs.domain.Product;
 import es.urjc.code.cqrs.domain.dto.FullProductDTO;
 import es.urjc.code.cqrs.domain.dto.FullShoppingCartDTO;
-import es.urjc.code.cqrs.domain.dto.FullShoppingCartItemDTO;
 import es.urjc.code.cqrs.domain.dto.ProductDTO;
 import es.urjc.code.cqrs.domain.repository.ProductRepository;
 import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
@@ -25,6 +20,7 @@ import es.urjc.code.cqrs.domain.service.command.ShoppingCartCommandServiceImpl;
 import es.urjc.code.cqrs.service.ValidationQueryServiceImpl;
 import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
 import es.urjc.code.cqrs.service.event.ProductEventProducer;
+import es.urjc.code.cqrs.service.event.ShoppingCartEventProducer;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class ShoppingCartService {
@@ -37,6 +33,7 @@ public class ShoppingCartService {
 	
 	private CartExpenditureEventProducer cartExpenditureEventProducer;
 	private ProductEventProducer productEventProducer;
+	private ShoppingCartEventProducer shoppingCartEventProducer;
 	
 	private static FullShoppingCartDTO createdShoppingCart;
 	
@@ -46,13 +43,15 @@ public class ShoppingCartService {
 		shoppingCartRepository = mock(ShoppingCartRepository.class);
 		cartExpenditureEventProducer = mock(CartExpenditureEventProducer.class);
 		productEventProducer = mock(ProductEventProducer.class);
+		shoppingCartEventProducer = mock(ShoppingCartEventProducer.class);
 		
 		productService = new ProductCommandServiceImpl(productRepository, productEventProducer);
 		shoppingCartService = new ShoppingCartCommandServiceImpl(
 				shoppingCartRepository,
 		        productRepository,
 		        new ValidationQueryServiceImpl(), 
-		        cartExpenditureEventProducer);
+		        cartExpenditureEventProducer,
+		        shoppingCartEventProducer);
 	}
 	
 	@Test
