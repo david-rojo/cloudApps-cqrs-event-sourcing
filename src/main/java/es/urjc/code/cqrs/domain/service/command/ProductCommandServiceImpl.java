@@ -9,6 +9,7 @@ import es.urjc.code.cqrs.domain.dto.ProductDTO;
 import es.urjc.code.cqrs.domain.repository.ProductRepository;
 import es.urjc.code.cqrs.service.event.ProductEventProducer;
 import es.urjc.code.cqrs.service.event.model.CreatedProductEvent;
+import es.urjc.code.cqrs.service.event.model.DeletedProductEvent;
 
 public class ProductCommandServiceImpl implements ProductCommandService {
 
@@ -33,8 +34,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
 	@Override
 	public FullProductDTO deleteProduct(UUID id) {
 		FullProductDTO product = repository.findById(id);
-		repository.deleteById(id);
-
+		eventProducer.send(mapper.map(product, DeletedProductEvent.class));
 		return product;
 	}
 }

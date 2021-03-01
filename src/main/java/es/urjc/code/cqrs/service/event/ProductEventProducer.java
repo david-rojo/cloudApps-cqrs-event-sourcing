@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import es.urjc.code.cqrs.service.event.model.CreatedProductEvent;
+import es.urjc.code.cqrs.service.event.model.DeletedProductEvent;
 
 @Service
 public class ProductEventProducer {
@@ -20,8 +21,12 @@ public class ProductEventProducer {
 	
 	public void send(CreatedProductEvent event) {
 		producer.publishEvent(event);
-		log.info("CreatedProductEvent produced for id {}", event.getId());
-		
+		log.info("CreatedProductEvent produced for id {}", event.getId());	
+	}
+	
+	public void send(DeletedProductEvent event) {
+		producer.publishEvent(event);
+		log.info("DeletedProductEvent produced for id {}", event.getId());	
 	}
 
 }
