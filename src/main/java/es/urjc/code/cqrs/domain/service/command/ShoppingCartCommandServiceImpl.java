@@ -8,7 +8,6 @@ import es.urjc.code.cqrs.domain.Product;
 import es.urjc.code.cqrs.domain.ShoppingCart;
 import es.urjc.code.cqrs.domain.ShoppingCartItem;
 import es.urjc.code.cqrs.domain.ShoppingCartStatus;
-import es.urjc.code.cqrs.domain.dto.FullCartExpenditureDTO;
 import es.urjc.code.cqrs.domain.dto.FullProductDTO;
 import es.urjc.code.cqrs.domain.dto.FullShoppingCartDTO;
 import es.urjc.code.cqrs.domain.dto.ShoppingCartDTO;
@@ -16,24 +15,25 @@ import es.urjc.code.cqrs.domain.repository.ProductRepository;
 import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
 import es.urjc.code.cqrs.domain.service.query.ValidationQueryService;
 import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
+import es.urjc.code.cqrs.service.event.model.CompletedCartEvent;
 
 public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandService {
 
 	private ShoppingCartRepository shoppingCartRepository;
 	private ProductRepository productRepository;
 	private ValidationQueryService validationService;
-	private CartExpenditureEventProducer cartExpenditureEventProducer;
+	private CartExpenditureEventProducer eventProducer;
 	
 	private ModelMapper mapper = new ModelMapper();
 
 	public ShoppingCartCommandServiceImpl(ShoppingCartRepository shoppingCartRepository,
 	        ProductRepository productRepository,
 	        ValidationQueryService validationService,
-	        CartExpenditureEventProducer cartExpenditureEventProducer) {
+	        CartExpenditureEventProducer eventProducer) {
 		this.shoppingCartRepository = shoppingCartRepository;
 		this.productRepository = productRepository;
 		this.validationService = validationService;
-		this.cartExpenditureEventProducer = cartExpenditureEventProducer;
+		this.eventProducer = eventProducer;
 	}
 	
 	private FullShoppingCartDTO saveShoppingCart(FullShoppingCartDTO fullShoppingCartDTO) {
@@ -67,7 +67,7 @@ public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandServic
 				mapper.map(shoppingCart, FullShoppingCartDTO.class));
 		
 		if (shoppingCart.isCompleted()) {
-			cartExpenditureEventProducer.publish(new FullCartExpenditureDTO(
+			eventProducer.send(new CompletedCartEvent(
 					fullSavedShoppingCartDTO.getId(),
 					fullSavedShoppingCartDTO.getPrice()));
 		}		

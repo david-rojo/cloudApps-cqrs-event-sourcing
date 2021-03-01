@@ -17,6 +17,7 @@ import es.urjc.code.cqrs.infrastructure.repository.SpringDataJPAProductRepositor
 import es.urjc.code.cqrs.infrastructure.repository.SpringDataJPAShoppingCartRepositoryAdapter;
 import es.urjc.code.cqrs.service.ValidationQueryServiceImpl;
 import es.urjc.code.cqrs.service.event.CartExpenditureEventProducer;
+import es.urjc.code.cqrs.service.event.ProductEventProducer;
 
 @org.springframework.context.annotation.Configuration
 public class Configuration {
@@ -27,8 +28,9 @@ public class Configuration {
 	}
 	
 	@Bean
-	public ProductCommandService productCommandService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
-		return new ProductCommandServiceImpl(repositoryAdapter);
+	public ProductCommandService productCommandService(SpringDataJPAProductRepositoryAdapter repositoryAdapter,
+			ProductEventProducer productEventProducer) {
+		return new ProductCommandServiceImpl(repositoryAdapter, productEventProducer);
 	}
 	
 	@Bean

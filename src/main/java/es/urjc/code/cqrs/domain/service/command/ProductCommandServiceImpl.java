@@ -7,24 +7,27 @@ import org.modelmapper.ModelMapper;
 import es.urjc.code.cqrs.domain.dto.FullProductDTO;
 import es.urjc.code.cqrs.domain.dto.ProductDTO;
 import es.urjc.code.cqrs.domain.repository.ProductRepository;
+import es.urjc.code.cqrs.service.event.ProductEventProducer;
+import es.urjc.code.cqrs.service.event.model.CreatedProductEvent;
 
 public class ProductCommandServiceImpl implements ProductCommandService {
 
 	private ProductRepository repository;
-	ModelMapper mapper = new ModelMapper();
 	
-	public ProductCommandServiceImpl(ProductRepository repository) {
+	private ModelMapper mapper = new ModelMapper();
+	
+	private ProductEventProducer eventProducer;
+	
+	public ProductCommandServiceImpl(ProductRepository repository, ProductEventProducer eventProducer) {
 		this.repository = repository;
-	}
-	
+		this.eventProducer = eventProducer;
+	}	
 	
 	@Override
 	public FullProductDTO createProduct(ProductDTO productDTO) {
-		FullProductDTO fullProductDTO = mapper.map(productDTO, FullProductDTO.class);
-		fullProductDTO.setId(UUID.randomUUID());
-		FullProductDTO saveFullProductDTO = repository.save(fullProductDTO);
-
-		return (saveFullProductDTO != null) ? saveFullProductDTO : fullProductDTO;
+		productDTO.setId(UUID.randomUUID());
+		eventProducer.send(mapper.map(productDTO, CreatedProductEvent.class));
+		return mapper.map(productDTO, FullProductDTO.class);
 	}
 
 	@Override
