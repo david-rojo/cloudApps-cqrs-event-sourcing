@@ -59,14 +59,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ENDPOINT}}/api/products/1",
+							"raw": "{{ENDPOINT}}/api/products/da242813-d3d7-43b2-9b07-70e4e1816a93",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"products",
-								"1"
+								"da242813-d3d7-43b2-9b07-70e4e1816a93"
 							]
 						}
 					},
@@ -78,14 +78,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{ENDPOINT}}/api/products/1",
+							"raw": "{{ENDPOINT}}/api/products/da242813-d3d7-43b2-9b07-70e4e1816a93",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"products",
-								"1"
+								"da242813-d3d7-43b2-9b07-70e4e1816a93"
 							]
 						}
 					},
@@ -129,14 +129,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{ENDPOINT}}/api/shoppingcarts/b868416b-55e0-4447-95a8-82a94345d6ed",
+							"raw": "{{ENDPOINT}}/api/shoppingcarts/19dd28e6-8e54-4767-bbb6-afd363468f71",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"shoppingcarts",
-								"b868416b-55e0-4447-95a8-82a94345d6ed"
+								"19dd28e6-8e54-4767-bbb6-afd363468f71"
 							]
 						}
 					},
@@ -148,14 +148,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ENDPOINT}}/api/shoppingcarts/1",
+							"raw": "{{ENDPOINT}}/api/shoppingcarts/19dd28e6-8e54-4767-bbb6-afd363468f71",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"shoppingcarts",
-								"1"
+								"19dd28e6-8e54-4767-bbb6-afd363468f71"
 							]
 						}
 					},
@@ -167,14 +167,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{ENDPOINT}}/api/shoppingcarts/SHOPPINGCART_ID",
+							"raw": "{{ENDPOINT}}/api/shoppingcarts/19dd28e6-8e54-4767-bbb6-afd363468f71",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"shoppingcarts",
-								"SHOPPINGCART_ID"
+								"19dd28e6-8e54-4767-bbb6-afd363468f71"
 							]
 						}
 					},
@@ -186,18 +186,18 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{ENDPOINT}}/api/shoppingcarts/1/product/2/quantity/3",
+							"raw": "{{ENDPOINT}}/api/shoppingcarts/19dd28e6-8e54-4767-bbb6-afd363468f71/product/da242813-d3d7-43b2-9b07-70e4e1816a93/quantity/2",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"shoppingcarts",
-								"1",
+								"19dd28e6-8e54-4767-bbb6-afd363468f71",
 								"product",
-								"2",
+								"da242813-d3d7-43b2-9b07-70e4e1816a93",
 								"quantity",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -209,16 +209,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{ENDPOINT}}/api/shoppingcarts/1/product/2",
+							"raw": "{{ENDPOINT}}/api/shoppingcarts/19dd28e6-8e54-4767-bbb6-afd363468f71/product/da242813-d3d7-43b2-9b07-70e4e1816a93",
 							"host": [
 								"{{ENDPOINT}}"
 							],
 							"path": [
 								"api",
 								"shoppingcarts",
-								"1",
+								"19dd28e6-8e54-4767-bbb6-afd363468f71",
 								"product",
-								"2"
+								"da242813-d3d7-43b2-9b07-70e4e1816a93"
 							]
 						}
 					},

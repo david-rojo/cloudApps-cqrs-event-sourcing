@@ -10,13 +10,19 @@ import org.springframework.stereotype.Controller;
 import es.urjc.code.cqrs.domain.Product;
 import es.urjc.code.cqrs.domain.dto.FullProductDTO;
 import es.urjc.code.cqrs.domain.repository.ProductRepository;
+import es.urjc.code.cqrs.domain.repository.ShoppingCartRepository;
 
 @Controller
 public class DatabaseLoader implements CommandLineRunner {
 
 	@Autowired
 	private ProductRepository productRepository;
-	ModelMapper mapper = new ModelMapper();
+	
+	@Autowired
+	private ShoppingCartRepository shoppingCartRepository;
+	
+	private ModelMapper mapper = new ModelMapper();
+	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -36,17 +42,14 @@ public class DatabaseLoader implements CommandLineRunner {
 		        "Nuestros equipos de diseño han desarrollado esta zapatilla de running ligera y con amortiguación para correr hasta 10 km a la semana.",
 		        12.48);
 
-		product1.setId(getRandomUUID());
-		product2.setId(getRandomUUID());
-		product3.setId(getRandomUUID());
+		product1.setId(UUID.fromString("da242813-d3d7-43b2-9b07-70e4e1816a93"));
+		product2.setId(UUID.fromString("79f2e84e-fd16-47ec-8e04-7c7fd5fb4c0c"));
+		product3.setId(UUID.fromString("8bc0060c-1a62-4f15-8bf9-39e7a327f4a5"));
 		
 		productRepository.save(mapper.map(product1, FullProductDTO.class));
 		productRepository.save(mapper.map(product2, FullProductDTO.class));
-		productRepository.save(mapper.map(product3, FullProductDTO.class));
-	}
-	
-	private UUID getRandomUUID() {
-		return UUID.randomUUID();
+		productRepository.save(mapper.map(product3, FullProductDTO.class));		
+		
 	}
 
 }
